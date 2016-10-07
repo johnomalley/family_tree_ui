@@ -1,24 +1,29 @@
 import React from 'react'
-import {StyleSheet, Text, View} from 'react-native'
-import moment from 'moment'
+import {TouchableHighlight, View, Text} from 'react-native'
+import styles from './styles'
+import Header from './Header'
+import Property from './Property'
+import Link from './Link'
+import displayName from './displayName'
+import profileProperties from './profileProperties'
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        flexDirection: 'column'
-    },
-    row: {
-        flex: 1
-    }
-})
+const Profile = ({family, path, member, showProfile, goBack}) => {
+    const renderChild = (child) =>
+        <Link key={child.id} onPress={() => showProfile(child)}>
+            {`${displayName(child)} -->`}
+        </Link>
 
-const Profile = ({firstName, familiarName, lastName, dob}) => (
-    <View style={styles.container}>
-        <Text style={styles.row}>
-            {`${familiarName || firstName} ${lastName}`}
-            {moment(dob).format('MMMM D (YYYY)')}
-        </Text>
-    </View>
-)
+    const renderProperty = ({label, value, type}, index) =>
+        <Property key={label} label={label} value={value} type={type} index={index} showProfile={showProfile}/>
+
+    return (
+        <View style={styles.container}>
+            {path.length === 1 ? (<Header title={family.name}/>) : null}
+            {path.length > 1 ? (<Link onPress={goBack}>{'<-- back'}</Link>) : null}
+            {profileProperties(member).map(renderProperty)}
+            {(member.children || []).map((child) => renderChild(child, showProfile))}
+        </View>
+    )
+}
 
 export default Profile

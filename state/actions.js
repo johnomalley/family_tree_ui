@@ -13,9 +13,7 @@ export const fetchFamily = (id) =>
             )
     }
 
-export const showProfile = (member) => ({type: PUSH_PATH, top: member})
-
-export const showChildren = ({children}) => ({type: PUSH_PATH, top: children})
+export const showProfile = (member) => ({type: PUSH_PATH, value: member})
 
 export const goBack = () => ({type: POP_PATH})
 

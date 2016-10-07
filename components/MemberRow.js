@@ -1,17 +1,12 @@
 import React from 'react'
 import {TouchableHighlight, Text} from 'react-native'
 import styles from './styles'
+import displayName from './displayName'
 
-const MemberRow = ({member, showProfile}) => {
-    const {familiarName, firstName, lastName} = member
-
-    const onTouch = () => console.log('!!!')
-
-    return (
-        <TouchableHighlight style={styles.row} onTouch={onTouch}>
-            <Text>{`${familiarName || firstName} ${lastName}`}</Text>
-        </TouchableHighlight>
-    )
-}
+const MemberRow = ({member, showProfile}) => (
+    <TouchableHighlight style={styles.nav} onPress={() => showProfile(member)}>
+        <Text>{displayName(member)}</Text>
+    </TouchableHighlight>
+)
 
 export default MemberRow

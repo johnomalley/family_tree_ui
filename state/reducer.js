@@ -8,17 +8,19 @@ export default handleActions({
     [FETCH_FAMILY]: (state, {status, result}) => {
         switch (status) {
             case 'complete':
+                const {id, name, description, members} = result
                 return {
                     ...state,
-                    path: [result.members]
+                    family: {id, name, description},
+                    path: [members[0]]
                 }
             default:
                 return state
         }
     },
-    [PUSH_PATH]: (state, {top}) => ({
+    [PUSH_PATH]: (state, {value}) => ({
         ...state,
-        path: [...state.path, top]
+        path: [...state.path, value]
     }),
     [POP_PATH]: (state) => ({
         ...state,
